@@ -1,23 +1,28 @@
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+import java.awt.Cursor;
+import java.awt.FlowLayout;
+import java.awt.LayoutManager;
 
 public class Dashboard {
 
     private JFrame frame;
     private JPanel informationPanel;
     private String username;
-    private String[] fetchedInformation = new String[10];
+    private String[] fetchedInformation = new String[11];
 
     Person user;
 
@@ -38,12 +43,9 @@ public class Dashboard {
             }
             infoReader.close();
 
-            for (String string : fetchedInformation) {
-                System.out.println(string);
-            }
-
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(frame, "Something went wrong please try again!", "Error", 3);
+            System.out.println(ex.getMessage());
         }
 
         // Now that the information is fetched into an array, let's store it into
@@ -69,19 +71,24 @@ public class Dashboard {
                         billsGenderated);
             } catch (ArrayIndexOutOfBoundsException ex) {
                 JOptionPane.showMessageDialog(frame, "Invalid Enteries", "Error", 2);
-                frame.dispose();
+                // frame.dispose();
             }
         }
 
         frame = new JFrame();
         frame.setTitle("Dashboard");
         frame.setSize(720, 640);
-        frame.setResizable(false);
+        frame.setResizable(true);
+        // LayoutManager layout = new FlowLayout();
+        // frame.setLayout(layout);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
 
         informationPanel = new JPanel();
         informationPanel.setLayout(null);
+        Border blackline = BorderFactory.createTitledBorder("Dashboard");
+        informationPanel.setBorder(blackline);
+        informationPanel.setBounds(20, 20, 700, 620);
 
         JLabel dashLabel = new JLabel(user.greetUser() + "!");
         dashLabel.setBounds(40, 40, 400, 30);
@@ -137,5 +144,22 @@ public class Dashboard {
 
         frame.add(informationPanel);
         frame.setVisible(true);
+
+        // Adding the functionality Buttons to perform different file handling
+        // operations
+
+        // Adding Buttons For Different Admin Operations
+        if (rank.equals("admin")) {
+            JButton addRecord = new JButton("Add Record");
+            addRecord.setBounds(120, 340, 100, 40);
+            addRecord.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            informationPanel.add(addRecord);
+
+            JButton getRecord = new JButton("Get Record");
+            getRecord.setBounds(280, 340, 100, 40);
+            getRecord.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            informationPanel.add(getRecord);
+        }
     }
+
 }
