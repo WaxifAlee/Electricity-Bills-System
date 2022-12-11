@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import javax.swing.JButton;
@@ -33,7 +34,7 @@ public class LoginFrame implements ActionListener {
 
         mainPanel = new JPanel();
         mainPanel.setLayout(null);
-        
+
         usernameLabel = new JLabel("Username");
         usernameLabel.setBounds(10, 20, 80, 25);
         usernameField = new JTextField();
@@ -66,21 +67,21 @@ public class LoginFrame implements ActionListener {
 
     }
 
-    public boolean authenticateCredentials(){
+    public boolean authenticateCredentials() {
         String username = usernameField.getText();
         char[] passwordArr = passwordField.getPassword();
         String password = new String(passwordArr);
         boolean success = false;
-        if(username.equals("") || password.equals("")){
+        if (username.equals("") || password.equals("")) {
             JOptionPane.showMessageDialog(frame, "Username and Password must not be empty");
             return false;
-        } else{
+        } else {
             try {
-                File dataFile = new File("./login_credentials/"+username+".txt");
+                File dataFile = new File("./login_credentials/" + username + ".txt");
                 Scanner fileReader = new Scanner(dataFile);
-                String originalPassword = fileReader.nextLine(); 
+                String originalPassword = fileReader.nextLine();
                 fileReader.close();
-                if(originalPassword.equals(password)){
+                if (originalPassword.equals(password)) {
                     success = true;
                 } else {
                     JOptionPane.showMessageDialog(frame, "Incorrect Password");
@@ -94,11 +95,15 @@ public class LoginFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == loginButton){
-           if(authenticateCredentials()){
-            new Dashboard(usernameField.getText());
-            frame.dispose();
-           }
+        if (e.getSource() == loginButton) {
+            if (authenticateCredentials()) {
+                try {
+                    new Dashboard(usernameField.getText());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                frame.dispose();
+            }
         }
     }
 }
