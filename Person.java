@@ -1,14 +1,13 @@
 public class Person {
     
-    private String firstName, lastName, cnic, contactNumber, address;
-    private char gender;
-    
+    private String firstName, lastName, cnic, contactNumber, dob, address, gender;    
     public Person(){}
-    public Person(String fName, String lName, String nic, String contactNumber, String adrs, char gender){
+    public Person(String fName, String lName, String nic, String contactNumber, String dob, String adrs, String gender){
         firstName = fName;
         lastName = lName;
         cnic = nic;
         this.contactNumber = contactNumber;
+        this.dob = dob;
         address = adrs;
         this.gender = gender;
     }
@@ -48,16 +47,16 @@ public class Person {
     public String getFullName(){
         return this.firstName+" "+this.lastName;
     }
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
     // Greet method to get a String saying hello along with the user name
     public String greetUser(){
-        String greetings = gender == 'M' ? "Welcome Mr. " : "Welcome Mrs. ";
+        String greetings = gender.equals("Male") ? "Welcome Mr. " : "Welcome Mrs. ";
         return greetings + getFullName();
     }
 

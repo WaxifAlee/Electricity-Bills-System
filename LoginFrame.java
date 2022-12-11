@@ -27,7 +27,7 @@ public class LoginFrame implements ActionListener {
     public LoginFrame() {
         frame = new JFrame(" LOGIN PAGE ");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setResizable(false);
+        frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setSize(350, 200);
 
@@ -96,7 +96,7 @@ public class LoginFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == loginButton){
            if(authenticateCredentials()){
-            new Dashboard(usernameField.getText(), new String(passwordField.getPassword()));
+            new Dashboard(usernameField.getText());
             frame.dispose();
            }
         }
