@@ -1,4 +1,5 @@
 import javax.imageio.ImageIO;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -8,21 +9,24 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 import java.awt.Cursor;
-import java.awt.FlowLayout;
-import java.awt.LayoutManager;
 
-public class Dashboard {
+public class Dashboard implements ActionListener {
 
     private JFrame frame;
     private JPanel informationPanel;
     private String username;
     private String[] fetchedInformation = new String[11];
+    private JButton addRecordBtn;
+    private JButton getRecordBtn;
+    private JButton editRecordBtn;
 
     Person user;
 
@@ -150,16 +154,30 @@ public class Dashboard {
 
         // Adding Buttons For Different Admin Operations
         if (rank.equals("admin")) {
-            JButton addRecord = new JButton("Add Record");
-            addRecord.setBounds(120, 340, 100, 40);
-            addRecord.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            informationPanel.add(addRecord);
+            addRecordBtn = new JButton("Add Client");
+            addRecordBtn.setBounds(120, 340, 100, 40);
+            addRecordBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            informationPanel.add(addRecordBtn);
 
-            JButton getRecord = new JButton("Get Record");
-            getRecord.setBounds(280, 340, 100, 40);
-            getRecord.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            informationPanel.add(getRecord);
+            getRecordBtn = new JButton("Get Client Record");
+            getRecordBtn.setBounds(260, 340, 140, 40);
+            getRecordBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            getRecordBtn.addActionListener(this);
+            informationPanel.add(getRecordBtn);
+            
+            editRecordBtn = new JButton("Edit Client Record");
+            editRecordBtn.setBounds(440, 340, 140, 40);
+            editRecordBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            informationPanel.add(editRecordBtn);
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == getRecordBtn){
+            new GetClient();
+        }
+        
     }
 
 }
