@@ -1,5 +1,4 @@
 import javax.imageio.ImageIO;
-import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
