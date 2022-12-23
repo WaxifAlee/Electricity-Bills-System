@@ -163,7 +163,7 @@ public class Dashboard implements ActionListener {
             getRecordBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
             getRecordBtn.addActionListener(this);
             informationPanel.add(getRecordBtn);
-            
+
             editRecordBtn = new JButton("Edit Client Record");
             editRecordBtn.setBounds(440, 340, 140, 40);
             editRecordBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -173,10 +173,10 @@ public class Dashboard implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == getRecordBtn){
+        if (e.getSource() == getRecordBtn) {
             new GetClient();
         }
-        
+
     }
 
 }
