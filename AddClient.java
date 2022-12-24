@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import java.awt.Color;
@@ -11,6 +12,9 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class AddClient extends JFrame implements ActionListener {
 
@@ -128,6 +132,7 @@ public class AddClient extends JFrame implements ActionListener {
         saveBtn = new JButton("SAVE");
         saveBtn.setBounds(190, 280, 120, 30);
         saveBtn.setCursor(new Cursor( Cursor.HAND_CURSOR ));
+        saveBtn.addActionListener(this);
         panel.add(saveBtn);
 
         setResizable(false);
@@ -138,10 +143,66 @@ public class AddClient extends JFrame implements ActionListener {
         
     }
 
+    public boolean verifyForm(){
+        boolean allFilled;
+
+        // firstNameTxt, lastNameTxt, userNameTxt, cnicTxt, phoneTxt,
+        // addressTxt, dojTxt, dobTxt, genderTxt, noOfBillsTxt;
+
+        allFilled = !(firstNameTxt.getText().equals(""))
+                    && !(lastNameTxt.getText().equals(""))
+                    && !(userNameTxt.getText().equals("") )
+                    && !(cnicTxt.getText().equals(""))
+                    && !(phoneTxt.getText().equals("") )
+                    && !(addressTxt.getText().equals(""))
+                    && !(dojTxt.getText().equals("") )
+                    && !(dobTxt.getText().equals("") )
+                    && !(genderTxt.getText().equals(""))
+                    && !(noOfBillsTxt.getText().equals(""));
+
+        return allFilled;
+
+    }
+
+    public void saveRecord( String data[] ){
+
+        try{
+
+            File file = new File("login_credentials/"+userNameTxt.getText()+".txt");
+            if(!(file.exists())){
+                FileWriter writer = new FileWriter(file);
+
+                for (int i = 0; i < data.length; i++) {
+                    writer.write(data[i]+"\n");
+                }
+                JOptionPane.showMessageDialog(this, "Registered Successfully",
+                                        "Success", 1);
+                writer.close();
+            } else {
+               JOptionPane.showMessageDialog(this, "User already exists",
+               "User Exists", 2);
+            }            
+
+        } catch (IOException ex){
+            ex.getMessage();
+        }
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        
-        
+        if(verifyForm()){
+            String[] record = { passwordTxt.getText(), firstNameTxt.getText(),
+                                lastNameTxt.getText(), cnicTxt.getText(),
+                                phoneTxt.getText(), addressTxt.getText(),
+                                dojTxt.getText(), dobTxt.getText(),
+                                genderTxt.getText(), genderTxt.getText(),
+                                noOfBillsTxt.getText()
+            };
+            saveRecord(record);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please Fill Out Whole Form", "Invalid", 2 );
+        }
     }
 
     public static void main(String[] args){
