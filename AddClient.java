@@ -135,9 +135,10 @@ public class AddClient extends JFrame implements ActionListener {
         saveBtn.addActionListener(this);
         panel.add(saveBtn);
 
+        setLocationRelativeTo(null);
         setResizable(false);
         setSize(460, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         add(panel);
         setVisible(true);
         
@@ -178,6 +179,7 @@ public class AddClient extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Registered Successfully",
                                         "Success", 1);
                 writer.close();
+                this.dispose();
             } else {
                JOptionPane.showMessageDialog(this, "User already exists",
                "User Exists", 2);
@@ -192,23 +194,19 @@ public class AddClient extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(verifyForm()){
-            String[] record = { passwordTxt.getText(), firstNameTxt.getText(),
+            String[] record = { new String(passwordTxt.getPassword()), firstNameTxt.getText(),
                                 lastNameTxt.getText(), cnicTxt.getText(),
-                                phoneTxt.getText(), addressTxt.getText(),
+                                phoneTxt.getText(), "client",
+                                addressTxt.getText(),
                                 dojTxt.getText(), dobTxt.getText(),
-                                genderTxt.getText(), genderTxt.getText(),
-                                noOfBillsTxt.getText()
+                                genderTxt.getText(), noOfBillsTxt.getText()
             };
             saveRecord(record);
         } else {
-            JOptionPane.showMessageDialog(this, "Please Fill Out Whole Form", "Invalid", 2 );
+            JOptionPane.showMessageDialog(this, "Please Fill Out Whole Form",
+                                    "Invalid", 2 );
         }
     }
-
-    public static void main(String[] args){
-        new AddClient();
-    }
-
 
 
 }

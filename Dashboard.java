@@ -26,6 +26,7 @@ public class Dashboard implements ActionListener {
     private JButton addRecordBtn;
     private JButton getRecordBtn;
     private JButton generateBillBtn;
+    private JButton logOutBtn;
 
     Person user;
 
@@ -126,7 +127,7 @@ public class Dashboard implements ActionListener {
         informationPanel.add(contactLabel);
 
         JLabel rankLabel = new JLabel("Logged in as: " + rank.toUpperCase());
-        rankLabel.setBounds(40, 180, 220, 30);
+        rankLabel.setBounds(40, 180, 190, 30);
         rankLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         informationPanel.add(rankLabel);
 
@@ -156,6 +157,7 @@ public class Dashboard implements ActionListener {
             addRecordBtn = new JButton("Add Client");
             addRecordBtn.setBounds(120, 340, 100, 40);
             addRecordBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            addRecordBtn.addActionListener(this);
             informationPanel.add(addRecordBtn);
 
             getRecordBtn = new JButton("Get Client Record");
@@ -168,6 +170,12 @@ public class Dashboard implements ActionListener {
             generateBillBtn.setBounds(440, 340, 140, 40);
             generateBillBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
             informationPanel.add(generateBillBtn);
+
+            logOutBtn = new JButton("Logout");
+            logOutBtn.setBounds(220, 185, 80, 20);
+            logOutBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            logOutBtn.addActionListener(this);
+            informationPanel.add(logOutBtn);
         }
     }
 
@@ -177,6 +185,9 @@ public class Dashboard implements ActionListener {
             new GetClient();
         } else if (e.getSource() == addRecordBtn) {
             new AddClient();
+        } else if (e.getSource() == logOutBtn) {
+            frame.dispose();
+            new LoginFrame();
         }
 
     }
