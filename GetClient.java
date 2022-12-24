@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -31,7 +32,7 @@ public class GetClient extends JFrame implements ActionListener {
         super("Fetch Records");
         JPanel panel = new JPanel();
 
-        setSize(480, 480);
+        setSize(480, 360);
         setResizable(true);
         // LayoutManager layout = new FlowLayout();
         // setLayout(layout);
@@ -119,9 +120,7 @@ public class GetClient extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == searchBtn) {
             String[] clientData = getClinetData(usernameField.getText());
-            for (String string : clientData) {
-                System.out.println(string);
-            }
+
             fullNameLbl.setText("Name: " + (clientData[1] + clientData[2]));
             cnicLbl.setText("CNIC: " + clientData[3]);
             phoneLbl.setText("Phone: " + clientData[4]);

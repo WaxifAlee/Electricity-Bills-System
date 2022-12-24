@@ -25,7 +25,7 @@ public class Dashboard implements ActionListener {
     private String[] fetchedInformation = new String[11];
     private JButton addRecordBtn;
     private JButton getRecordBtn;
-    private JButton editRecordBtn;
+    private JButton generateBillBtn;
 
     Person user;
 
@@ -164,10 +164,10 @@ public class Dashboard implements ActionListener {
             getRecordBtn.addActionListener(this);
             informationPanel.add(getRecordBtn);
 
-            editRecordBtn = new JButton("Edit Client Record");
-            editRecordBtn.setBounds(440, 340, 140, 40);
-            editRecordBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            informationPanel.add(editRecordBtn);
+            generateBillBtn = new JButton("Generate Bill");
+            generateBillBtn.setBounds(440, 340, 140, 40);
+            generateBillBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            informationPanel.add(generateBillBtn);
         }
     }
 
@@ -175,6 +175,8 @@ public class Dashboard implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == getRecordBtn) {
             new GetClient();
+        } else if (e.getSource() == addRecordBtn) {
+            new AddClient();
         }
 
     }
