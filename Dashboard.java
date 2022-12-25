@@ -169,6 +169,7 @@ public class Dashboard implements ActionListener {
             generateBillBtn = new JButton("Generate Bill");
             generateBillBtn.setBounds(440, 340, 140, 40);
             generateBillBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            generateBillBtn.addActionListener(this);
             informationPanel.add(generateBillBtn);
 
             logOutBtn = new JButton("Logout");
@@ -177,6 +178,9 @@ public class Dashboard implements ActionListener {
             logOutBtn.addActionListener(this);
             informationPanel.add(logOutBtn);
         }
+    }
+
+    public Dashboard() {
     }
 
     @Override
@@ -188,7 +192,8 @@ public class Dashboard implements ActionListener {
         } else if (e.getSource() == logOutBtn) {
             frame.dispose();
             new LoginFrame();
-        }
+        } else if (e.getSource() == generateBillBtn)
+            new GenerateBill();
 
     }
 
