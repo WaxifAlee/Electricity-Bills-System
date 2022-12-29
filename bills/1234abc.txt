@@ -1,0 +1,7 @@
+1234abc
+client
+50.0
+30
+1500.0
+Thu Dec 29 19:44:57 PKT 2022
+paid

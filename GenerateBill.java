@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Date;
 
 public class GenerateBill extends JFrame implements ActionListener {
@@ -88,6 +89,7 @@ public class GenerateBill extends JFrame implements ActionListener {
 
         generateBtn = new JButton("Generate");
         generateBtn.setBounds(280, 230, 100, 30);
+        generateBtn.addActionListener(this);
 
         // Adding components to the panel
         panel.add(accessionIdLabel);
@@ -121,10 +123,27 @@ public class GenerateBill extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    }
 
-    public static void main(String[] args) {
-        new GenerateBill();
+        if (e.getSource() == generateBtn) {
+            String accessionId = accessionIdField.getText();
+            String generatedTo = generatedToField.getText();
+            double pricePerUnit = Double.parseDouble(pricePerUnitField.getText());
+            int totalUnits = Integer.parseInt(totalUnitsField.getText());
+            double totalPrice = pricePerUnit * totalUnits;
+            String date = dateField.getText();
+            boolean isPaid = paidCheck.isSelected();
+
+            totalPriceField.setText(Double.toString(totalPrice));
+
+            Bill bill = new Bill(accessionId, generatedTo, pricePerUnit, totalUnits, totalPrice, date, isPaid);
+            try {
+                bill.save();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+        }
+
     }
 
 }
